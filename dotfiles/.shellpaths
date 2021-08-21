@@ -1,0 +1,11 @@
+export PATH=$PATH:.
+
+# Brew
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
+
+# The next line updates PATH for the Google Cloud SDK.
+source "/Users/$(whoami)/google-cloud-sdk/path.fish.inc"
+
+# The next line enables shell command completion for gcloud.
+source "/Users/$(whoami)/google-cloud-sdk/completion.fish.inc"
