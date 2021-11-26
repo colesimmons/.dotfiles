@@ -27,8 +27,8 @@ module.exports = {
 
     // Misc
     'todo-txt',
-  ],
-  cask: [
+
+    // Casks
     'anki',
     'dashlane',
     'docker', // docker for mac
@@ -40,12 +40,22 @@ module.exports = {
     'iterm2',
     'micro-snitch',
     'mullvadvpn',
+    "notion",
     'slack',
     'spotify',
     'tableplus',
     'the-unarchiver',
     'vlc',
     'zoom',
+
+    // Fonts
+    "homebrew/cask-fonts",
+    "font-inconsolata-dz-for-powerline",
+    "font-inconsolata-g-for-powerline",
+    "font-inconsolata-for-powerline",
+    "font-roboto-mono",
+    "font-roboto-mono-for-powerline",
+    "font-source-code-pro",
   ],
   npm: [
     'eslint',

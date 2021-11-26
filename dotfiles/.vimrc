@@ -1,14 +1,3 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Must Have
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('termguicolors')
-  set termguicolors
-endif
-set background=dark
-let g:everforest_background = 'hard'
-colorscheme everforest
-syntax enable
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -27,23 +16,22 @@ Plugin 'tpope/vim-sensible'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-surround'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'ayu-theme/ayu-vim'
 
 " language tools
-Plugin 'scrooloose/syntastic'
+Plugin 'dense-analysis/ale'
 Plugin 'sheerun/vim-polyglot'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
+syntax on
 filetype plugin indent on    " required
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" global enable spell check
-"set spell spelllang=en_us   " spell check go to highlighted word and "z=" to see list to turn off set nospell
-setlocal spell spelllang=en_us
-setlocal spellfile=$HOME/.vim-spell-en.utf-8.add
-autocmd BufRead,BufNewFile *.md,*.txt setlocal spell  " enable spell check for certain files
+
 " set UTF-8 encoding
 set enc=utf-8
 set fenc=utf-8
@@ -54,6 +42,12 @@ set ffs=unix,dos,mac " support all three, in this order
 set viminfo+=! " make sure it can save viminfo
 set isk+=_,$,@,%,# " none of these should be word dividers, so make them not be
 set nosol " leave my cursor where it was
+
+set termguicolors
+set background=dark
+let g:everforest_background = 'hard'
+colorscheme everforest
+
 " yank to clipboard
 if has("clipboard")
   set clipboard=unnamed " copy to the system clipboard
@@ -86,6 +80,7 @@ set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,*.jpg,*.gif,*.png " ignor
 set ruler " Always show current positions along the bottom
 set cmdheight=1 " the command bar is 1 high
 set number " turn on line numbers
+set relativenumber
 set lz " do not redraw while running macros (much faster) (LazyRedraw)
 set hid " you can change buffer without saving
 set backspace=2 " make backspace work normal
@@ -116,12 +111,12 @@ set laststatus=2 " always show the status line
 set ai " autoindent (filetype indenting instead)
 set nosi " smartindent (filetype indenting instead)
 set cindent " do c-style indenting
-set softtabstop=4 " unify
-set shiftwidth=4 " unify
-set tabstop=4 " real tabs should be 4, but they will show with set list on
+set softtabstop=2 " unify
+set shiftwidth=2 " unify
+set tabstop=2 " real tabs should be 4, but they will show with set list on
 set copyindent " but above all -- follow the conventions laid before us
-" wrap lines at 120 chars. 80 is somewhat antiquated with nowadays displays.
-set textwidth=120
+" wrap lines at 100 chars. 80 is somewhat antiquated with nowadays displays.
+set textwidth=100
 filetype plugin indent on " load filetype plugins and indent settings
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -159,34 +154,9 @@ set modelines=0
 set nomodeline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let Tlist_Ctags_Cmd = 'ctags' " Location of ctags
-"let Tlist_Sort_Type = "name" " order by
-"let Tlist_Use_Right_Window = 1 " split to the right side of the screen
-"let Tlist_Compact_Format = 1 " show small meny
-"let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
-"let Tlist_File_Fold_Auto_Close = 0 " Do not close tags for other files
-"let Tlist_Enable_Fold_Column = 1 " Do show folding tree
-"let Tlist_WinWidth = 50 " 50 cols wide, so I can (almost always) read my functions
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Matchit
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let b:match_ignorecase = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Perl
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let perl_extended_vars=1 " highlight advanced perl vars inside strings
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom Functions
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Select range, then hit :SuperRetab($width) - by p0g and FallingCow
-function! SuperRetab(width) range
-    silent! exe a:firstline . ',' . a:lastline . 's/\v%(^ *)@<= {'. a:width .'}/\t/g'
-endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -239,26 +209,7 @@ noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 nnoremap <silent> <leader>es :Esformatter<CR>
 vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntastic
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
-let g:syntastic_html_tidy_quiet_messages = { "level": "warnings" }
-let g:syntastic_html_tidy_ignore_errors = [ '<template> is not recognized!' ]
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_eslint_checker = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_enable_tslint_checker = 1
-"let g:syntastic_typescript_checkers = ['tslint', 'tsc']
-let g:syntastic_enable_pug_checker = 1
-let g:syntastic_pug_checkers = ['jade','pug']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Other
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

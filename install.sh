@@ -168,6 +168,8 @@ if [[ "$CURRENTSHELL" != "/usr/local/bin/fish" ]]; then
   sudo dscl . -change /Users/$USER UserShell $SHELL /usr/local/bin/fish > /dev/null 2>&1
   ok
 fi
+oh-my-fish bin/install --offline
+omf install boxfish
 
 bot "Dotfiles Setup"
 bot "creating symlinks for project dotfiles..."
@@ -192,13 +194,11 @@ for file in .*; do
   echo -en '\tlinked';ok
 done
 
-popd > /dev/null 2>&1
-
 bot "VIM Setup"
 bot "Installing vim plugins"
 # cmake is required to compile vim bundle YouCompleteMe
 # require_brew cmake
-vim +PluginInstall +qall > /dev/null 2>&1
+vim +PluginInstall +qall
 ok
 
 
@@ -206,14 +206,6 @@ bot "installing fonts"
 # need fontconfig to install/build fonts
 require_brew fontconfig
 ./fonts/install.sh
-brew tap homebrew/cask-fonts
-require_brew svn #required for roboto
-require_cask font-inconsolata-dz-for-powerline
-require_cask font-inconsolata-g-for-powerline
-require_cask font-inconsolata-for-powerline
-require_cask font-roboto-mono
-require_cask font-roboto-mono-for-powerline
-require_cask font-source-code-pro
 ok
 
 
@@ -766,35 +758,6 @@ running "Disable automatic spell checking"
 defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled";ok
 
 ###############################################################################
-bot "Spotlight"
-###############################################################################
-
-running "Change indexing order and disable some file types from being indexed"
-defaults write com.apple.spotlight orderedItems -array \
-  '{"enabled" = 1;"name" = "APPLICATIONS";}' \
-  '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-  '{"enabled" = 1;"name" = "DIRECTORIES";}' \
-  '{"enabled" = 1;"name" = "PDF";}' \
-  '{"enabled" = 1;"name" = "FONTS";}' \
-  '{"enabled" = 0;"name" = "DOCUMENTS";}' \
-  '{"enabled" = 0;"name" = "MESSAGES";}' \
-  '{"enabled" = 0;"name" = "CONTACT";}' \
-  '{"enabled" = 0;"name" = "EVENT_TODO";}' \
-  '{"enabled" = 0;"name" = "IMAGES";}' \
-  '{"enabled" = 0;"name" = "BOOKMARKS";}' \
-  '{"enabled" = 0;"name" = "MUSIC";}' \
-  '{"enabled" = 0;"name" = "MOVIES";}' \
-  '{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-  '{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-  '{"enabled" = 0;"name" = "SOURCE";}';ok
-running "Load new settings before rebuilding the index"
-killall mds > /dev/null 2>&1;ok
-running "Make sure indexing is enabled for the main volume"
-sudo mdutil -i on / > /dev/null;ok
-#running "Rebuild the index from scratch"
-#sudo mdutil -E / > /dev/null;ok
-
-###############################################################################
 bot "Terminal & iTerm2"
 ###############################################################################
 
@@ -815,11 +778,6 @@ bot "Terminal & iTerm2"
 # i.e. hover over a window and start `typing in it without clicking first
 defaults write com.apple.terminal FocusFollowsMouse -bool true
 #defaults write org.x.X11 wm_ffm -bool true;ok
-
-running "Installing the Solarized Light theme for iTerm (opening file)"
-open "./configs/Solarized Light.itermcolors";ok
-running "Installing the Patched Solarized Dark theme for iTerm (opening file)"
-open "./configs/Solarized Dark Patch.itermcolors";ok
 
 running "set system-wide hotkey to show/hide iterm with ^\`"
 defaults write com.googlecode.iterm2 Hotkey -bool true;ok
@@ -960,13 +918,13 @@ bot "BetterSnapTool"
 ###############################################################################
 
 running "Configuring BetterSnapTool"
-defaults write com.hegenberg.BetterSnapTool launchOnStartup -bool true;ok
-defaults write com.hegenberg.BetterSnapTool registeredHotkeys {
-  0 = { keyCode = 13; modifiers = 2048; };
-  18 = { keyCode = 1; modifiers = 2048; };
-  2 = { keyCode = 0; modifiers = 2048; };
-  4 = { keyCode = 2; modifiers = 2048; };
-};
+# defaults write com.hegenberg.BetterSnapTool launchOnStartup -bool true;ok
+# defaults write com.hegenberg.BetterSnapTool registeredHotkeys {
+  # 0 = { keyCode = 13; modifiers = 2048; };
+  # 18 = { keyCode = 1; modifiers = 2048; };
+  # 2 = { keyCode = 0; modifiers = 2048; };
+  # 4 = { keyCode = 2; modifiers = 2048; };
+# };
 
 ###############################################################################
 # Kill affected applications                                                  #

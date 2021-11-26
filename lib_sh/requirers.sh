@@ -31,20 +31,6 @@ function require_brew() {
   ok
 }
 
-function require_cask() {
-  running "brew cask $1"
-  brew cask list $1 > /dev/null 2>&1 | true
-  if [[ ${PIPESTATUS[0]} != 0 ]]; then
-    action "brew cask install $1 $2"
-    brew install --cask $1
-    if [[ $? != 0 ]]; then
-      error "failed to install $1! aborting..."
-      # exit -1
-    fi
-  fi
-  ok
-}
-
 function require_gem() {
   running "gem $1"
   if [[ $(gem list --local | grep $1 | head -1 | cut -d' ' -f1) != $1 ]]; then

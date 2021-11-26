@@ -19,7 +19,7 @@ const command = (cmd, dir, cb) => {
 
 const tasks = [];
 
-['brew', 'cask', 'npm', 'gem', 'mas'].forEach( type => {
+['brew', 'npm', 'mas'].forEach( type => {
   if(config[type] && config[type].length){
     tasks.push((cb)=>{
       console.info(emoji.get('coffee'), ' installing '+type+' packages')
