@@ -25,20 +25,15 @@ module.exports = {
     'tmux',
     'vim --with-client-server --with-override-system-vi',
 
-    // Misc
-    'todo-txt',
-
     // Casks
     'anki',
-    'dashlane',
-    'docker', // docker for mac
+    'docker',
     'figma',
-    'firefox-developer-edition',
+    'firefox',
     'flux',
     'google-chrome',
     'google-cloud-sdk',
     'iterm2',
-    'micro-snitch',
     'mullvadvpn',
     "notion",
     'slack',
@@ -48,8 +43,7 @@ module.exports = {
     'vlc',
     'zoom',
 
-    // Fonts
-    "homebrew/cask-fonts",
+    // Fonts (must tap homebrew/cask-fonts first)
     "font-inconsolata-dz-for-powerline",
     "font-inconsolata-g-for-powerline",
     "font-inconsolata-for-powerline",

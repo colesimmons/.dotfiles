@@ -3,27 +3,10 @@
   "version": "5.2.0",
   "description": "atomantic dotfiles for macos",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
-  },
+  "scripts": {},
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/atomantic/dotfiles.git"
-  },
-  "keywords": [
-    "dotfiles",
-    "osx",
-    "macos",
-    "automation",
-    "setup",
-    "developer",
-    "iterm",
-    "commandline",
-    "bootstrap"
-  ],
+  "repository": {},
+  "keywords": [],
   "author": "Adam Eivy <atomantic@gmail.com>",
   "license": "ISC",
   "bugs": {
